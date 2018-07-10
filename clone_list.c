@@ -101,28 +101,12 @@ t_node *clone_list(t_node *node)
 	t_node *l2head = l2;
 	while (l1 && l2)
 	{
-		//printf("l1 curr:%d \n l2 curr:%d \n", l1->data,l2->data);
+		
 		
 		t_node *tmp = l1->other;
-
 		int i = index_(node, tmp);
-
-		/*printf("index :%d \n", i);
-		if(!tmp)
-			printf("tmp NULL\n");
-		else
-			printf("tmp: %d\n", tmp->data);
-		*/
-		t_node *tmp2=pointer(l2head, i);
-		/*
-		if(!tmp2)
-			printf("tmp2 NULL\n");
-		else
-			printf("tmp2: %d\n", tmp->data);
-		*/
-		l2->other=tmp;
-
 		
+		l2->other=tmp;
 
 		l1 = l1->next;
 		l2 = l2->next;
