@@ -106,6 +106,36 @@ int can_split(struct s_node *n)
 
 }
 
+
+/ This function returns true if there is an edge
+// whose removal can divide the tree in two halves
+// n is size of tree
+bool checkRec(Node* root, int n)
+{
+    // Base cases
+    if (root ==NULL)
+       return false;
+ 
+    // Check for root
+    if (count(root) == n-count(root))
+        return true;
+ 
+    // Check for rest of the nodes
+    return checkRec(root->left, n) ||
+           checkRec(root->right, n);
+}
+ 
+// This function mainly uses checkRec()
+bool check(Node *root)
+{
+    // Count total nodes in given tree
+    int n = count(root);
+ 
+    // Now recursively check all nodes
+    return checkRec(root, n);
+}
+
+
 int main ()
 {
 	s_node *root = init(27);
