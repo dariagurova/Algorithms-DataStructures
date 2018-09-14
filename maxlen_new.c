@@ -1,15 +1,5 @@
 #include <stdio.h>
-
-void	printer_helper(char *s, int start, int sub_len)
-{
-	s = s+start;
-	while (sub_len > 0)
-	{
-		printf("%c", *s);
-		s++;
-		sub_len--;
-	}
-}
+#include <stdlib.h>
 
 int len(char *s)
 {
@@ -18,66 +8,91 @@ int len(char *s)
 	{
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
-int is_start(char *b, char *a, int start, int sub_len)
+int stratsWith(char *substr, char *string)
 {
-	a = a+start;
-	while (*b && *a && sub_len>0)
+	if (len(substr) > len(string))
+		return (0);
+	int i = 0;
+	while (i < len(substr))
 	{
-		if (*b != *a)
+		if(string[i] != substr[i])
 			return(0);
-		b++;
-		a++;
-		sub_len--;
-
+		i++;
 	}
-	return (sub_len == 0);
+	return(1);
 }
 
-int	 is_sub(char *b, char *a, int start, int sub_len)
+
+int subDetect(char *substr, char *string)
 {
-	while(*b)
+	if (len(substr) > len(string))
+		return (0);
+	int i = 0;
+	while (i < len(string))
 	{
-		if (is_start(b, a, start, sub_len))
+		if (stratsWith(substr, string+i))
 			return(1);
-		b++;
+		i++;
 	}
-	return(0);
+	return (0);
 }
 
-void	printer(char *a, char *b)
+int in_the_list(char *substr, char **list, int list_count)
 {
-	
-	int l = len(a);
-	int i = l;
-	while (i > 0)
+	int i = 0;
+	while (i < list_count)
+	{
+		if (!subDetect(substr, list[i]))
+			return(0);
+		i++;
+	}
+	return (1);
+
+}
+
+char *aloc(char *start, int l)
+{
+	char *res = malloc(sizeof(char)*(l+1));
+	int i = 0;
+	while (i < l)
+	{
+		res[i] = start[i];
+		i++;
+	}
+	res[i] = '\0';
+	return(res);
+}
+
+void	print(char **av, int ac)
+{
+	char *s = av[0];
+	int l = len(s);
+	int sublen = l;
+
+	while (sublen > 0)
 	{
 		int j = 0;
-		while (j < l + 1 - i)
+		while (j < l - sublen + 1)
 		{
-	
-			int flag = 0;
-			flag=is_sub(b,a,j, i);
-			if (flag)
-			{
-				printer_helper(a, j, i);
-				printf("\n");
-	
+			char *tmp = aloc(s+j, sublen);
+			if (in_the_list(tmp, av+1, ac-1)){
+				printf("%s\n", tmp);
+				free(tmp);
 				return;
 			}
-			 
 			j++;
+			free(tmp);
 		}
-		i--;
+		sublen--;
 	}
 }
 
-int main ()
+int main (int ac, char **av)
 {
-	char *a = "unicorn";
-	char *b = "sdcordasd";
-	printer(a,b);
+	char **s = av+1;
+	print(s, ac-1);
 	return (0);
 }
