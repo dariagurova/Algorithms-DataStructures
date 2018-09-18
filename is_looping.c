@@ -52,6 +52,20 @@ int is_looping(struct s_node *list)
 
 }
 
+// struct Node  *slow_p = list, *fast_p = list; 
+  
+//     while (slow_p && fast_p && fast_p->next) 
+//     { 
+//         slow_p = slow_p->next; 
+//         fast_p  = fast_p->next->next; 
+  
+//         
+//         if (slow_p == fast_p) 
+//         {  
+//             return 1; 
+//         } 
+//     } 
+
 int main ()
 {
 	s_node *head = init(25);
