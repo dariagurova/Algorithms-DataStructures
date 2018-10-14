@@ -33,7 +33,7 @@ void printer(node *root)
 
 	while (root)
 	{
-		printf("%d  ", root->data);
+		printf("next: %d  ", root->data);
 		if (!root->other)
 			printf("other: NULL\n");
 		else
@@ -45,14 +45,14 @@ void printer(node *root)
 node *clone(node *head)
 {
 	node *cloned = init(head->data);
-	node *l1 = cloned;
+	node *copyHead = cloned;
 	node *l2 = head->next;
 	while (l2)
 	{
-		l1 = add(l1, l2->data);
+		add(cloned, l2->data);
 		l2 = l2->next;
 	}
-	return (cloned);
+	return (copyHead);
 }
 
 int index_(node *root, node *el)
@@ -74,7 +74,7 @@ node *pointer(node *root, int idx)
 {
 	if (idx == -1)
 		return(NULL);
-	while (root && idx >= 0)
+	while (root && idx > 0)
 	{
 		root = root->next;
 		idx--;
@@ -94,13 +94,12 @@ node *clone_list(node *root)
 	node *l1 = root;
 	node *l2 = clone(root);
 	node *l2root = l2;
+	node *l1root = root;
 	while (l1 && l2)
 	{
 		node *tmp = l1->other;
-		int idx = index_(root, tmp);
-		node *tmp2 = pointer(l2root, idx);
-		l2->other=tmp;
-
+		int idx = index_(l1root, tmp);
+		connect(l2root, l2, idx);
 
 		l1 = l1->next;
 		l2 = l2->next;
@@ -117,13 +116,13 @@ int main ()
 	node *n2 = add(root,2);
 	node *n3 = add(root,3);
 	node *n4 = add(root,4);
+	connect(root, root, 1);
     connect(root, n1, 2);
     connect(root, n2, 0);
     connect(root, n3, 1);
-    connect(root, n4, 1);
+    connect(root, n4, 3);
 	printer(root);
 	printf("**************************************\n");
-	//int i = index(root, NULL);
 	
 	node *new = clone_list(root);
 	printf("**************************************\n");
@@ -132,14 +131,3 @@ int main ()
 	return(0);
 
 }
-
-
-
-
-
-
-
-
-
-
-
