@@ -1,0 +1,194 @@
+CONVERT_BST
+Assignment name  : convert_bst
+Expected files   : convert_bst.c
+Allowed functions: 
+--------------------------------------------------------------------------------
+A binary search tree (BST) is a binary tree in which every node fits
+a specific ordering property :
+all left descendants <= n < all right descendants
+This must be true for each node n.
+Implement a function to convert a binary search tree to a sorted, circular,
+doubly-linked list.
+This conversion must be in-place (using the tree nodes as the new list nodes).
+The binary search tree uses the following node structure :
+    struct s_node {
+        int           value;
+        struct s_node *right;
+        struct s_node *left;
+    };
+The function must be declared as follows:
+    struct s_node *convert_bst(struct s_node *bst);
+The function must return a pointer to the smallest element of the sorted,
+circular, doubly-linked list.
+For each node of the linked list, the right pointer points to the next node
+and the left pointer points to the previous node.
+The sort is in increasing order.
+
+
+
+
+
+COUNT_ISLAND
+Assignment name  : count_island
+Expected files   : *.c, *.h
+Allowed functions: open, close, read, write, malloc, free
+--------------------------------------------------------------------------------
+
+Write a program that takes a file that contains lines of equal length. Those
+lines contain characters that are either '.' or 'X'. All those lines put
+together form rectangles of '.' containing "islands" of 'X'.
+
+The maximum size of a line is 1024 characters, including the terminating
+newline.
+
+A column if formed of the set of characters in the file that are separated from
+the start of their respective lines by the same number of characters.
+
+Two characters are said to be touching if they are contiguous and on the same
+line, or on contiguous lines and on the same column.
+
+An "island" of 'X' means a set of 'X' touching each other.
+
+The program must walk though the file and display it after replacing all the
+'X' by a number corresponding to the position their island appears in the file,
+starting at the beginning of the file.
+
+There can be only one result.
+
+If the file is empty, or there is an error (Incoherent input, for example), or
+no parameters are passed, the program must display a newline.
+
+The file contains at most 10 islands.
+
+You will find examples in the subject directory.
+
+Examples:
+
+$>cat johndoe
+.................XXXXXXXX..........................................
+....................XXXXXXXXX.......XXXXXXXX.......................
+.................XXXXXXXX..............XXX...XXXXX.................
+.....................XXXXXX.....X...XXXXXXXXXXX....................
+................................X..................................
+......XXXXXXXXXXXXX.............X..................................
+..................X.............XXXXXXXXX..........................
+..................X.........XXXXXXXXXXXX...........................
+..................X................................................
+XX.............................................................XXXX
+XX..................XXXXXXXXXXXXX.................................X
+...................................................................
+.................................................................X.
+.....................XXXXX.......................................XX
+$>
+$>./count_island johndoe
+.................00000000..........................................
+....................000000000.......11111111.......................
+.................00000000..............111...11111.................
+.....................000000.....2...11111111111....................
+................................2..................................
+......3333333333333.............2..................................
+..................3.............222222222..........................
+..................3.........222222222222...........................
+..................3................................................
+44.............................................................5555
+44..................6666666666666.................................5
+...................................................................
+.................................................................7.
+.....................88888.......................................77
+$>
+
+$>cat who-s-there
+...................................................................
+...X........X.....XXXXX......XXXXXXX...XXXXXXXXXX..XXXXXXXXXX......
+...XX......XX....XX...XX....XX.....XX.....XXXX.....XXXXXXXXXX......
+...XXXX..XXXX...XX.....XX...XX.....XX......XX......XX..............
+...XX.XXXX.XX...XX.....XX...XX.....XX......XX......XX..............
+...XX...X..XX...XX.....XX...XXXXXXXX.......XX......XXXXX...........
+...XX......XX...XXXXXXXXX...XXXX...........XX......XXXXX...........
+...XX......XX..XX.......XX..XX.XX..........XX......XX..............
+...XX......XX..XX.......XX..XX...X.........XX......XX..............
+...XX......XX..XX.......XX..XX....X......XXXXXX....XXXXXXXXXX......
+...XX......XX.XX.........XX.XX.....XX..XXXXXXXXXX..XXXXXXXXXX..X...
+...................................................................
+$>
+$>./count_island who-s-there
+...................................................................
+...0........0.....11111......2222222...3333333333..4444444444......
+...00......00....11...11....22.....22.....3333.....4444444444......
+...0000..0000...11.....11...22.....22......33......44..............
+...00.0000.00...11.....11...22.....22......33......44..............
+...00...0..00...11.....11...22222222.......33......44444...........
+...00......00...111111111...2222...........33......44444...........
+...00......00..11.......11..22.22..........33......44..............
+...00......00..11.......11..22...5.........33......44..............
+...00......00..11.......11..22....6......333333....4444444444......
+...00......00.11.........11.22.....77..3333333333..4444444444..8...
+...................................................................
+$>
+
+$>cat -e void
+$>./count_island void | cat -e
+$
+$>
+
+
+
+
+
+GOLD_GAIN
+Assignment name  : gold_gain
+Expected files   : gold_gain.c
+Allowed functions: malloc
+--------------------------------------------------------------------------------
+ALERT: OPTIMIZED SOLUTION REQUIRED.
+Given a matrix which represent a gold mine of n*n dimensions.
+Each field in this mine contains a positive integer which is the
+amount of gold in tons.
+Initially the miner is at first column but can be at any row.
+He can move only (right->,right up /,right down\) that is from a given cell,
+the miner can move to the cell diagonally up towards the right or right or
+diagonally down towards the right.
+implement an algorithm able to return the maximum amount of gold he can collect.
+The function must be declared as follows:
+int gold_gain(int **mine, int n);
+Considerations:
+- Be careful: the brute force solution won't work on our big input, you have to
+find an optimized solution which use dynamic programming.
+- You don't have to handle error case, the matrix will be always squared.
+- The bigger test we will do is on matrix of 1 000 * 1 000,
+it should run in less than 2 seconds.
+Example 1:
+mine = [
+  [ 1, 0, 0 ],
+  [ 0, 3, 4 ],
+  [ 0, 0, 0 ]
+]
+n = 3
+In this example, your function should return 8,
+because taking the following path gain 8:
+(0,0) -> (1,1) -> (1,2)
+  1   ->   3   ->   4
+Example 2:
+mine = [
+  [ 1, 2, 3 ],
+  [ 3, 4, 8 ],
+  [ 9, 6, 7 ]
+]
+n = 3
+In this example, your function should return 23,
+because taking the following path gain 23:
+(2,0) -> (2,1) -> (1,3)
+Example 3:
+mine = [
+  [ 1, 3, 1, 5 ],
+  [ 2, 2, 4, 1 ],
+  [ 5, 0, 2, 3 ],
+  [ 0, 6, 1, 2 ]
+]
+n = 4
+In this example, your function should return 16,
+because there is 2 path which give this gain:
+(2,0) -> (1,1) -> (1,2) -> (0,3)
+or
+(2,0) -> (3,1) -> (2,2) -> (2,3)
+
