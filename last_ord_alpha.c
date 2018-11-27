@@ -56,31 +56,14 @@ int cmp_chr(char a, char b)
 	return(0);
 }
 
-/*
-function cmp(char *a, char *b)
-compares strin a vs string b in a "special" way 
-returns 0 or 1
-1:if a > b
-0:if a <= b
-
-ex:
-cmp("abb","bbb")=>0
-cmp("baa","aba")=>
-cmp("bbb","aaa")=>1
-cmp("bbb","bab")=>1
-cmp("bab","bbb")=>0
-*/
 int cmp(char *a, char *b)
 {
-	int i = 0;
-	int cmp = 0;
-	int l1 = len(a);
-	int l2 = len(b);
-	if (l1 > l2)
+	if (len(a) > len(b))
 		return (1); 
-	if (l1 < l2)
+	if (len(a) < len(b))
 		return (0);
 	
+	int i = 0;
 	while (a[i] && b[i])
 	{
 		if (cmp_chr(a[i],b[i])==1)
@@ -92,7 +75,7 @@ int cmp(char *a, char *b)
 	}
 	if (a[i]==0 && b[i] == 0)
 		return (0);
-	if (a[i]>0)
+	if (a[i] > 0)
 		return(1);
 	return(0);
 }
@@ -127,11 +110,6 @@ char **ret_arr(char *s)
 	return (res);
 }
 
-int cmp_(char a,char b)
-{
-	return(a>b);
-}
-
 
 void	sort(char **arr)
 {
@@ -143,9 +121,7 @@ void	sort(char **arr)
 		j = i-1;
 		while (j >= 0 && cmp(arr[j], arr[j+1]))
 		{
-			//
-			char *tmp;
-			tmp = arr[j];
+			char *tmp = arr[j];
 			arr[j] = arr[j+1];
 			arr[j+1] = tmp;
 			j--;
@@ -182,33 +158,7 @@ int main (int ac, char **av)
 	
 	sort(res);
 	arr_printer(res);
-	
-	
-	// char *a;
-	// char *b;
-
-	// // a="Pour";
-	// // b="Imperium";
-	// // printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// a="Imperium";
-	// b="humanite";
-	// printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// // a="humanite";
-	// // b="Imperium";
-	// // printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// a="I";
-	// b="h";
-	// printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// a="h";
-	// b="I";
-	// printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// a="m";
-	// b="u";
-	// printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	// a="u";
-	// b="m";
-	// printf("%s %s cmp %d\n",a,b,cmp(a,b));
-	 write(1, "\n", 1);
+	write(1, "\n", 1);
 	return (0);
 
 }
