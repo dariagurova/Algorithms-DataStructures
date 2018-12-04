@@ -1,17 +1,5 @@
 #include <stdio.h>
 
-int	compare(int *ah, int *bh)
-{
-	int i = 0;
-	while (i < 255)
-	{
-		if (ah[i] != bh[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	is_anagram(char *a, char *b)
 {
 	int ah[255];
@@ -34,17 +22,17 @@ int	is_anagram(char *a, char *b)
 
 	int k = 0;
 	while (k < 255)
-    {
-        int j = 0;
-        bh[k] = 0;
-        while (b[j] != '\0')
-        {
-            if (((char)k) == b[j])
-                bh[k] += 1;
-            j++;
-        }
-        k++;
-    }
+	{
+		int j = 0;
+		bh[k] = 0;
+		while (b[j] != '\0')
+		{
+		    if (((char)k) == b[j])
+			bh[k] += 1;
+		    j++;
+        	}
+        	k++;
+    	}
 
 
 	int f = 0;
