@@ -133,8 +133,6 @@ $>
 
 
 
-
-
 GOLD_GAIN
 Assignment name  : gold_gain
 Expected files   : gold_gain.c
