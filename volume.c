@@ -52,5 +52,3 @@ int main()
 
 
 
-jupyter-notebook --no-browser --port 8888 --ip=0.0.0.0 --config NotebookApp.password='' --config NotebookApp.token='' --config NotebookApp.password_required=False
-
