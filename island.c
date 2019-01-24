@@ -8,7 +8,7 @@ void	flood(char **grid, int row, int col, int h, int w, char f);
 
 void	fill(char **grid, int row, int col, int h, int w, char f)
 {
-	if (row >= 0 && col >= 0 & row < h && col < w)
+	if (row >= 0 && col >= 0 && row < h && col < w)
 	{
 		if (grid[row][col] == 'X')
 		{
