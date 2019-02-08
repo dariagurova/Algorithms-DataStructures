@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <stdio.h>
+
 struct s_node {
         void *content;
         struct s_node *next;
@@ -8,81 +8,68 @@ struct s_node {
         struct s_node *first;
         struct s_node *last;
     };
-typedef struct s_node s_node;
-typedef struct s_queue s_queue;
 
-s_queue *init(void)
+
+struct s_queue *init(void)
 {
-	s_queue *q;
-	q = malloc(sizeof(s_queue));
+	struct s_queue *q;
+	q = malloc(sizeof(struct s_queue));
 	q->first = NULL;
 	q->last = NULL;
 	return(q);
 }
 
-s_node *initNode(void* val)
+struct s_node *initNode(void* val)
 {
-	s_node *new;
-	new = malloc(sizeof(s_node));
+	struct s_node *new;
+	new = malloc(sizeof(struct s_node));
 	new->content = val;
 	new->next = NULL;
 	return (new);
 }
 
-s_node	*add(s_node *list, void *val)
-{
 
-	if (!list)
-		return(NULL);
-	s_node *tmp;
-	tmp = initNode(val);
-	while (list->next)
-	{
-		list = list->next;
-	}
-	list->next = tmp;
-	return(tmp);
-}
-
-void enqueue(s_queue *queue, void *content)
+void enqueue(struct s_queue *queue, void *content)
 {
-	s_node *ad;
+	struct s_node *ad = initNode(content);
 	if (!queue)
-		queue = init();
+		return;
+	if(!content)
+		return;
 	if (!queue->first || !queue->last)
 	{	
-		ad = initNode(content);
+		
 		queue->first = ad;
 		queue->last = ad;
+		return;
 
-	} 
-	else
-	{
-		ad = add(queue->last,content);
-		queue->last = ad;
 	}
+	struct s_node *tmp = queue->last;
+	queue->last = ad;
+	tmp->next = ad;
+	
 }
 
-int isEmpty(s_queue *queue)
+int isEmpty(struct s_queue *queue)
 {
-	if (!queue)
+	if (!queue || !queue->last || !queue->first)
 		return (1);
 
 	return(!queue->last);
 
 }
-void *peek(s_queue *queue)
+void *peek(struct s_queue *queue)
 {
 	if (isEmpty(queue))
 		return (NULL);
 	return(queue->first->content);
 
 }
-void *dequeue(s_queue *queue)
+void *dequeue(struct s_queue *queue)
 {
 	void *val;
-	s_node *tmp;
-	if (!queue || !queue->first)
+	struct s_node *tmp;
+	if (!queue || !queue->first || !queue->last)
 		return (NULL);
 	tmp = queue->first;
 	queue->first = tmp->next;
@@ -93,6 +80,7 @@ void *dequeue(s_queue *queue)
 	free(tmp);
 	return (val);
 }
+
 
 int main ()
 {
