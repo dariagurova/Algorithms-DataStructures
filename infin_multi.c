@@ -1,120 +1,103 @@
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
-int len(char *s) {
-	int ret = 0;
-	while (*s++)
-		ret++;
-	return ret;
-}
-
-int checkSign(char *num1, char *num2)
+int len(char *s)
 {
-	int neg = 0;
 	int i = 0;
-	int j = 0;
-	if (num1[i] == '-' && num2[j] == '-')
-		{
-			i++;
-			j++;
-			neg = 0;
-		}
-	if (num1[i] == '-' && num2[j] != '-')
+	while(s[i])
 	{
 		i++;
-		neg = 1;
 	}
+	return(i);
+}
 
-	if (num1[i] != '-' && num2[j] == '-')
+int checkSign(char *a, char *b)
+{
+	int i = 0;
+	int j = 0;
+	int neg = 0;
+	if(a[i] == '-' && b[j] == '-')
+	{
+		i++;
+		j++;
+	}
+	else if(a[i] == '-' && b[j] != '-')
+	{
+		i++;
+		neg=1;
+	}
+	else if(a[i] != '-' && b[j] == '-')
 	{
 		j++;
 		neg = 1;
 	}
-
+	
 	return(neg);
-
 }
 
-int main(int ac, char **av)
+
+ int main()
 {
-	if (ac != 3)
-		return(0);
-	char *num1 = av[1];
-	char *num2 = av[2];
-	int neg = checkSign(num1, num2);
+	// if(ac > 3 || ac == 1)
+	// {
+	// 	write(1, "\n", 1);
+	// 	return(0);
+	// }
 
-	long l1 = len(num1);
-	long l2 = len(num2);
+	char *num1 = "2123";
+	char *num2 = "-6521";
 
-	long totLen = l1+l2;
-	int *res = malloc(sizeof(int)*totLen);
-	for(int i = 0; i < totLen; i++)
+	int l1 = len(num1);
+	int l2 = len(num2);
+	long total = l1+l2;
+
+	int *res = malloc(sizeof(int)*total);
+	for (int i = 0; i <= total; i++){
 		res[i] = 0;
+	}
 
-	int i1 = l1-1;
 	int idx1 = 0;
-	while(i1 >= 0)
+	int idx2 = 0;
+	for(int i = l1-1; i >= 0; i--)
 	{
-		int leftOver = 0;
-		int n1 = num1[i1] - '0';
-
-		int i2 = l2-1;
-		int idx2 = 0;
-		while(i2 >= 0)
+		int leftover = 0;
+		int n1 = num1[i] - '0';
+		idx2 = 0;
+		for(int j = l2-1; j >= 0; j--)
 		{
-			int n2 = num2[i2] - '0';
-			int sum = (n1*n2) + res[idx1+idx2] + leftOver;
-			leftOver = sum/10;
+			int n2 = num2[j] - '0';
+			int sum = (n1*n2) + res[idx1 + idx2] + leftover;
+			leftover = sum/10;
 			res[idx1+idx2] = sum%10;
 			idx2++;
-			i2--;
 		}
-		if (leftOver)
-			res[idx1+idx2] = leftOver;
-		i1--;
+
+		if (leftover)
+			res[idx1+idx2] += leftover;
 		idx1++;
 	}
 
-	for(int j = 0; j < totLen; j++)
+	int idx = total-1;
+	while(idx && res[idx] == 0)
+		idx--;
+	if(idx == -1)
 	{
-		char c = res[j]+'0';
-		write(1,&c,1);
-		j++;
+		write(1, "0\n", 1);
+		return(0);
+	}
+
+	int neg = checkSign(num1, num2);
+	if (neg)
+		write(1, "-", 1);
+	while(idx >= 0)
+	{
+		char c = res[idx] + '0';
+		
+		write(1, &c, 1);
+		idx--;
 	}
 	write(1, "\n", 1);
 	return(0);
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
