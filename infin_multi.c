@@ -38,47 +38,31 @@ int main(int ac, char **av)
 	char *num1 = av[1];
 	char *num2 = av[2];
 
-	int l1 = len(num1);
-	int l2 = len(num2);
+	int tot = len(num1) + len(num2);
+	
 
-	int *ret = malloc(sizeof(int)*(l1+l2));
-	for(int i = 0; i < l1+l2; i++)
+	int *ret = malloc(sizeof(int)*(tot));
+	for(int i = 0; i < tot; i++)
 	{
 		ret[i] = 0;
 	}
-
-	int neg = 0;
-	if(*num1 == '-' && *num2 == '-')
-	{
-		num1++;
-		num2++;
-	}
-	else if(*num1 == '-' && *num2 != '-')
-	{
-		num1++;
-		neg = 1;
-	}
-	else if(*num1 != '-' && *num2 == '-')
-	{
-		num2++;
-		neg = 1;
-	}
-
-	printf("num1 --> %s\n", num1);
-	printf("num2 --> %s\n", num2);
-
-	int idx1 = 0; int idx2 = 0;
+	int neg = sign(num1, num2);
+	int l1 = len(num1);
+	int l2 = len(num2);
+	
+	int idx1 = 0;
+	int idx2 = 0;
 
 	for (int k = l1-1; k >= 0; k--)
 	{
 		int leftover = 0;
 		int n1 = num1[k] - '0';
-		printf("n1 == %d; k == %d\n", n1, k);
+		
 		idx2 = 0;
 		for(int j = l2-1; j >= 0; j--)
 		{
 			int n2 = num2[j] - '0';
-			printf("n2 == %d; j == %d\n", n2, j);
+			
 			int sum = (n1*n2)+ret[idx1+idx2]+leftover;
 			leftover = sum/10;
 			ret[idx1+idx2] = sum%10;
