@@ -35,16 +35,7 @@ s_node	*add(int val, s_node *tree)
 	return (new);
 }
 
-void printer(s_node *tree)
-{
-	int i = 0;
-	printf("%d\n",tree->value);
-	while (tree->nodes[i])
-	{
-		printf("child: %d\n", tree->nodes[i]->value);
-		i++;
-	}
-}
+
 int childless(s_node *tree)
 {
 	int i = 0;
@@ -54,33 +45,24 @@ int childless(s_node *tree)
 	}
 	return(i==0);
 }
-int height_tree(struct s_node *root,int level)
+int height_tree(struct s_node *root)
 {
 	int max=0;
 	int i = 0;
-	printf("level: %d\n", level);
-	printer(root);
 
 	if(childless(root))
 	{
-		printf("exit childless\n");
-		printf("level up\n");
 		return(0);
 	}
 	while (root->nodes[i] && i<100)
 	{
-		printf("i:%d\n", i);
 		int h = height_tree(root->nodes[i],level+1);
-		printf("h[%d]=%d  old max=%d\n",i,h,max);
 		if (h>max)
 		{
-			max=h;
-			printf("new max=%d\n",max);
+			max=h;	
 		}
 		i++;
 	}
-	printf("exit max:%d\n",max);
-	printf("level up\n");
 		
 	return (max+1);
 
