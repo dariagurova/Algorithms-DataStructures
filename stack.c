@@ -8,42 +8,40 @@ struct s_stack {
         struct s_node *top;
     };
 
-typedef struct s_stack s_stack; 
-typedef struct s_node s_node; 
 
-s_stack *init(void)
+struct s_stack *init(void)
 {
-	s_stack *s;
-	s = malloc(sizeof(s_stack));
+	struct s_stack *s;
+	s = malloc(sizeof(struct s_stack));
 	s->top = NULL;
 	return(s);
 }
 
-s_node *initNode(void* val)
+struct s_node *initNode(void* val)
 {
-	s_node *new;
-	new =  malloc(sizeof(s_node));
+	struct s_node *new;
+	new =  malloc(sizeof(struct s_node));
 	new->next = NULL;
 	new->content = val;
 	return(new);
 }
 
-s_node *add(s_node *head, void* val)
+struct s_node *add(struct s_node *head, void* val)
 {
-	s_node *tmp = initNode(val);
+	struct s_node *tmp = initNode(val);
 	tmp->next = head;
 	return(tmp);
 }
 
-void push(s_stack *stack, void *content)
+void push(struct s_stack *stack, void *content)
 {
-	if (!stack)
+	if (!stack || !content)
 		return;
-	s_node *head = stack->top;
+	struct s_node *head = stack->top;
 	stack->top=add(head,content); 
 }
 
-int isEmpty(s_stack *stack)
+int isEmpty(struct s_stack *stack)
 {
 	if(!stack || !stack->top)
 		return(1);
@@ -53,7 +51,7 @@ int isEmpty(s_stack *stack)
 
 void *pop(struct s_stack *stack)
 {
-	s_node *tmp;
+	struct s_node *tmp;
 	if(!stack)
 		return(NULL);
 	tmp=stack->top;
@@ -65,12 +63,13 @@ void *pop(struct s_stack *stack)
 	return(val);
 }
 
-void *peek(s_stack *stack)
+void *peek(struct s_stack *stack)
 {
 	if (isEmpty(stack))
 		return(NULL);
 	return(stack->top->content);
 }
+
 
 int main ()
 {
